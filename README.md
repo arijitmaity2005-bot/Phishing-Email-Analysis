@@ -47,7 +47,7 @@ The display name is **Microsoft account team**, but the `From` address uses `acc
 
 The visible `From` domain (`access-accsecurity[.]com`), `Reply-To` domain (`gmail[.]com`), and `Return-Path` / SMTP sender domain (`thcultarfdes[.]co[.]uk`) are different. Different domains can occur in legitimate mail systems, so this is not conclusive by itself; in a message claiming to be an account-security alert, however, the discrepancy is a significant triage indicator.
 
-![Full email header overview](screenshots/01-email-headers-overview.png)
+![Full email header overview](screenshorts/01-email-headers-overview.png)
 
 **Evidence:** The header overview shows the subject, visible sender, authentication results, return path, and reply-to information.
 
@@ -55,7 +55,7 @@ The visible `From` domain (`access-accsecurity[.]com`), `Reply-To` domain (`gmai
 
 The captured `Reply-To` field points to a Gmail address rather than an address aligned with the claimed Microsoft identity. If a recipient replied, the response could go to a different party than the one implied by the display name.
 
-![Reply-To address in raw headers](screenshots/05-reply-to-address.png)
+![Reply-To address in raw headers](screenshorts/05-reply-to-address.png)
 
 ## 4. Email Authentication and Header Review
 
@@ -70,11 +70,11 @@ The supplied raw headers show the following results:
 | SMTP / envelope sender | `thcultarfdes[.]co[.]uk` | Different from the visible `From` domain. |
 | Reply-To | Gmail address | Different from both the visible `From` and envelope sender domains. |
 
-![Authentication results from the raw email header](screenshots/04-authentication-results.png)
+![Authentication results from the raw email header](screenshorts/04-authentication-results.png)
 
 The header’s `Authentication-Results` line explicitly includes `spf=none`, `dkim=none`, and `dmarc=permerror`. These results should not be described as a successful authentication pass. They increase suspicion but do not, on their own, prove phishing; they are assessed together with the URL and identity evidence.
 
-![Additional raw header fields](screenshots/06-full-header-fields.png)
+![Additional raw header fields](screenshorts/06-full-header-fields.png)
 
 ### 4.1 Received-path context
 
@@ -83,11 +83,11 @@ The sample contains `Received` lines showing delivery through Microsoft / Outloo
 <details>
 <summary>Additional received-header evidence</summary>
 
-![Received header evidence — first hop](screenshots/02-received-header-hop-a.png)
+![Received header evidence — first hop](screenshorts/02-received-header-hop-a.png)
 
-![Received header evidence — second hop](screenshots/03-received-header-hop-b.png)
+![Received header evidence — second hop](screenshorts/03-received-header-hop-b.png)
 
-![X-Sender-IP header evidence](screenshots/10-x-sender-ip-header.png)
+![X-Sender-IP header evidence](screenshorts/10-x-sender-ip-header.png)
 
 </details>
 
@@ -99,7 +99,7 @@ The supplied VirusTotal screenshot for `89.144.44.2` shows:
 - **Additional context:** the page reports two detected files communicating with the IP address.
 - **Displayed network information:** `89.144.44.0/24`, ASN `201132` (shown as “MSCode”), and country indicator `PL`.
 
-![VirusTotal analysis of sender IP 89.144.44.2](screenshots/09-virustotal-ip-analysis.png)
+![VirusTotal analysis of sender IP 89.144.44.2](screenshorts/09-virustotal-ip-analysis.png)
 
 ### Interpretation
 
@@ -113,7 +113,7 @@ The URL shown in the evidence is defanged below:
 
 The supplied VirusTotal screenshot shows **9/92 detections**. Several visible vendors classify the URL as **Phishing** or **Malicious**, and at least one visible result is marked **Suspicious**.
 
-![VirusTotal URL analysis showing 9/92 detections](screenshots/08-virustotal-url-analysis.png)
+![VirusTotal URL analysis showing 9/92 detections](screenshorts/08-virustotal-url-analysis.png)
 
 ### Interpretation
 
@@ -123,7 +123,7 @@ This is the strongest indicator in the submitted evidence. Multiple vendor detec
 
 A screenshot of the email HTML shows an image element whose `src` points to the same tracking path and whose dimensions are `1px` by `1px`, with hidden visibility.
 
-![Hidden 1×1 image reference in the email HTML](screenshots/07-hidden-tracking-pixel.png)
+![Hidden 1×1 image reference in the email HTML](screenshorts/07-hidden-tracking-pixel.png)
 
 A hidden tracking pixel can be used to record message opens or recipient activity. Such pixels also exist in legitimate marketing email, so this is **supporting context rather than standalone proof** of maliciousness. In this case, it adds context to the URL reputation and sender inconsistencies.
 
@@ -179,16 +179,4 @@ screenshots/
 ├── 08-virustotal-url-analysis.png
 ├── 09-virustotal-ip-analysis.png
 └── 10-x-sender-ip-header.png
-```
 
-If your main lab repository already has a `README.md`, you can link to this report from it with:
-
-```markdown
-## Investigation Reports
-
-- [Phishing Email Analysis](Phishing_Email_Analysis.md)
-```
-
----
-
-*Prepared for defensive security learning and SOC Analyst L1 portfolio demonstration. This report documents analysis of a supplied sample and does not imply that any live URL was visited.*

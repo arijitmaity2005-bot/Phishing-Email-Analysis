@@ -1,13 +1,6 @@
 # Phishing-Email-Analysis
 # Phishing Email Analysis Report
 
-> **Case ID:** PHISH-2026-001  
-> **Investigation type:** Email security triage / SOC Analyst Level 1  
-> **Disposition:** **Likely phishing — high confidence based on the supplied evidence**  
-> **Evidence source:** Screenshots of the raw email headers and VirusTotal results supplied for this analysis  
-> **Sample email date:** 8 September 2023 (as shown in the captured headers)  
-> **Analysis package prepared:** 10 October 2026
-
 ## 1. Executive Summary
 
 The email impersonates a Microsoft account security notification with the subject **“Microsoft account unusual sign in activity.”** Several independent indicators make the message suspicious:
